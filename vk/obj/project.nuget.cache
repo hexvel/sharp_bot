@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "lTaYYJU9Fklv2EGONgYgoLHQfNMDEJRhJp/yr3QGt/hvLCrbI7PU0W/Pc/bX+Z8Y+Xw7TBANMI9or9yGiHtxqw==",
+  "success": true,
+  "projectFilePath": "C:\\projects\\c#\\vk\\vk.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Hexvel\\.nuget\\packages\\htmlagilitypack\\1.11.46\\htmlagilitypack.1.11.46.nupkg.sha512",
+    "C:\\Users\\Hexvel\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\7.0.0\\microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hexvel\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\7.0.0\\microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hexvel\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\7.0.0\\microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hexvel\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\Hexvel\\.nuget\\packages\\system.text.encoding.codepages\\7.0.0\\system.text.encoding.codepages.7.0.0.nupkg.sha512",
+    "C:\\Users\\Hexvel\\.nuget\\packages\\vknet\\1.74.0\\vknet.1.74.0.nupkg.sha512"
+  ],
+  "logs": []
+}
