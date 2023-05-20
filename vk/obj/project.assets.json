@@ -399,11 +399,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\projects\\c#\\vk\\vk.csproj",
+      "projectUniqueName": "C:\\projects\\git\\c#\\sharp_bot\\vk\\vk.csproj",
       "projectName": "vk",
-      "projectPath": "C:\\projects\\c#\\vk\\vk.csproj",
+      "projectPath": "C:\\projects\\git\\c#\\sharp_bot\\vk\\vk.csproj",
       "packagesPath": "C:\\Users\\Hexvel\\.nuget\\packages\\",
-      "outputPath": "C:\\projects\\c#\\vk\\obj\\",
+      "outputPath": "C:\\projects\\git\\c#\\sharp_bot\\vk\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Hexvel\\AppData\\Roaming\\NuGet\\NuGet.Config"
