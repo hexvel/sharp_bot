@@ -1,18 +1,23 @@
 using System;
 using VkBot;
+using System.Collections;
 using Newtonsoft.Json.Linq;
 
 namespace ApiBot
 {
     public partial class VkApi
     {
-        private string access_token, v;
-        public static string token = "vk1.a.AsJCIhYaIF3WTES_WtwDo8EPe9D4_ffZ0U9rI81DrG7fY52jzce_yek5JjL3iKgzfv944u70Xg4Z3rxDK9JJyPIcpQq6PvcrOcWa6MVcyZLNPsBuIyhdO8PMkQ09WI-Dm9QwcJMT9PRQjOGIag8XzeQa8D9dYvaID5EwPgLO-O8wrVgkZwm8yJJVNS1aTy_T";
+        private static string access_token;
+
+        public VkApi(string access_token)
+        {
+            VkApi.access_token = access_token;
+        }
         public static object GetLongPollServer()
         {
             Dictionary<string, string> Params = new Dictionary<string, string>()
             {
-                ["access_token"] = token,
+                ["access_token"] = access_token,
                 ["v"] = "5.131"
             };
 
@@ -30,7 +35,7 @@ namespace ApiBot
             return Requests(url, values).Result;
         }
 
-        public static object CheckLongPoll()
+        public JObject CheckLongPoll()
         {
             GetLongPollServer();
             JObject Event = MakeLongRequest();
@@ -52,7 +57,7 @@ namespace ApiBot
             HttpClient client = new HttpClient();
 
             FormUrlEncodedContent content = new FormUrlEncodedContent(Params);
-            var response = await client.PostAsync($"https:://api.vk.com/method/{method}?access_token={this.access_token}&v=5.131", content);
+            var response = await client.PostAsync($"https://api.vk.com/method/{method}?access_token={access_token}&v=5.131", content);
             return JObject.Parse(await response.Content.ReadAsStringAsync());
         }
     }

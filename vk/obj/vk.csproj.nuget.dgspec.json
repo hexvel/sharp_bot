@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\git\\c#\\sharp_bot\\vk\\vk.csproj": {}
+    "C:\\projects\\git\\c#\\sharp_bot-1\\vk\\vk.csproj": {}
   },
   "projects": {
-    "C:\\projects\\git\\c#\\sharp_bot\\vk\\vk.csproj": {
+    "C:\\projects\\git\\c#\\sharp_bot-1\\vk\\vk.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\git\\c#\\sharp_bot\\vk\\vk.csproj",
+        "projectUniqueName": "C:\\projects\\git\\c#\\sharp_bot-1\\vk\\vk.csproj",
         "projectName": "vk",
-        "projectPath": "C:\\projects\\git\\c#\\sharp_bot\\vk\\vk.csproj",
+        "projectPath": "C:\\projects\\git\\c#\\sharp_bot-1\\vk\\vk.csproj",
         "packagesPath": "C:\\Users\\Hexvel\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\git\\c#\\sharp_bot\\vk\\obj\\",
+        "outputPath": "C:\\projects\\git\\c#\\sharp_bot-1\\vk\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hexvel\\AppData\\Roaming\\NuGet\\NuGet.Config"
