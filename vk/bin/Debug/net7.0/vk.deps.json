@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v7.0": {
       "vk/1.0.0": {
         "dependencies": {
+          "Newtonsoft.Json": "13.0.3",
           "VkNet": "1.74.0"
         },
         "runtime": {

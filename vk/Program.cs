@@ -1,44 +1,64 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+
 namespace VkBot
 {
-    public class MainClassVk
+    public class LongPoll
     {
-        public static void Main()
-        {
-            string token = "vk1.a.UknqVGrk4pDGkY3wovzKAjxKekovf1gqMb302tqWu0IsSM8QtFKKxlL-imyLstU2crwe2rxvRiYnTNCDoHgqRLxoKMzSzKV8ZIu5unO5fR216Wbom4_slpVPeY3Xo5w7g9z4HvinEMblyriZUtjcI98gQJSmQj7_05G6wXwrB5xP6gFhKDpGAofT1UNX3vEpZp-P3IbQlVPW_UvRYfCXlw";
 
+        public static string token = "vk1.a.zAayRSi-WrItwn8NGEakRlAxGugoXNL6c88yKOH6CJhuGw9TsWue-tpnpNEj2XBh4vAxu6O9VIDUFxMylcFqN8AsMuHau5FBLvjlUknFhIRgWwJJxd_NlXbbS0DG4_n-lyLQmksLiWsHuH0ZUYduQNGgMbTYIjrqCS4z_k5msoUdF6TFzfkz5EhC5lTPi-EQ2UMolhAm2uZiUYEw-nodcw";
+        public static object GetLongPollServer()
+        {
             Dictionary<string, string> Params = new Dictionary<string, string>()
             {
-                ["user_id"] = "465816400",
                 ["access_token"] = token,
+                ["method"] = "messages.getLongPollServer",
                 ["v"] = "5.131"
             };
 
-            var answer = GetRequests("https://api.vk.com/method/users.get/", Params).Result;
-            System.Console.WriteLine(answer.Content.ReadAsStringAsync().Result);
+            JObject LongPollServer = Requests("https://api.vk.com/method/", Params).Result;
+            return LongPollServer["response"];
         }
 
-        public static async Task<HttpResponseMessage> GetRequests(string url, Dictionary<string, string> Params)
+        public static JObject MakeLongRequest()
+        {
+            JObject longPollServer = (JObject)GetLongPollServer();
+            string url = $"https://{longPollServer["server"]}/";
+
+            Dictionary<string, string> values = new Dictionary<string, string>()
+            {
+                ["act"] = "a_check",
+                ["key"] = (string)longPollServer["key"],
+                ["ts"] = (string)longPollServer["ts"],
+                ["wait"] = "25",
+                ["rps_delay"] = "0"
+            };
+            
+            return Requests(url, values).Result;
+        }
+
+        public static object CheckLongPoll()
+        {
+            GetLongPollServer();
+            JObject Event = MakeLongRequest();
+            return Event;
+        }
+
+        public static void Main()
+        {
+            while(true)
+            {
+                Console.WriteLine(CheckLongPoll());
+            }
+        }
+
+        public static async Task<JObject> Requests(string url, Dictionary<string, string> Params)
         {
             HttpClient client = new HttpClient();
+            Uri uri = new Uri(url);
 
-            try
-            {
-                Uri uri = new Uri(url);
-                FormUrlEncodedContent content = new FormUrlEncodedContent(Params);
-
-                return await client.PostAsync(uri, content);
-            }
-            catch (Exception ex)
-            {
-                System.Console.WriteLine($"Произошла ошибка:{ex}");
-            }
-            finally
-            {
-                client.Dispose();
-            }
-            return null;
+            FormUrlEncodedContent content = new FormUrlEncodedContent(Params);
+            var response = await client.PostAsync(uri, content);
+            return JObject.Parse(await response.Content.ReadAsStringAsync());
         }
-
     }
 }
