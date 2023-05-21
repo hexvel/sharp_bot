@@ -11,27 +11,19 @@ namespace VkBot
             Dictionary<string, string> Params = new Dictionary<string, string>()
             {
                 ["access_token"] = token,
-                ["method"] = "messages.getLongPollServer",
                 ["v"] = "5.131"
             };
 
-            JObject LongPollServer = Requests("https://api.vk.com/method/", Params).Result;
+            JObject LongPollServer = Requests("https://api.vk.com/method/messages.getLongPollServer/", Params).Result;
             return LongPollServer["response"];
         }
 
         public static JObject MakeLongRequest()
         {
             JObject longPollServer = (JObject)GetLongPollServer();
-            string url = $"https://{longPollServer["server"]}/";
+            string url = $"https://{longPollServer["server"]}?act=a_check&key={longPollServer["key"]}&ts={longPollServer["ts"]}&wait=25&rps_delay=0";
 
-            Dictionary<string, string> values = new Dictionary<string, string>()
-            {
-                ["act"] = "a_check",
-                ["key"] = (string)longPollServer["key"],
-                ["ts"] = (string)longPollServer["ts"],
-                ["wait"] = "25",
-                ["rps_delay"] = "0"
-            };
+            Dictionary<string, string> values = new Dictionary<string, string>();
             
             return Requests(url, values).Result;
         }
