@@ -27,17 +27,10 @@ namespace ApiBot
                 ["random_id"] = rnd
             };
 
-            HttpClient client = new HttpClient();
-
-            FormUrlEncodedContent content = new FormUrlEncodedContent(@params);
-            var response = await client.PostAsync($"https://api.vk.com/method/messages.send?access_token={access_token}&v=5.131", content);
-            JObject.Parse(await response.Content.ReadAsStringAsync());
+            await Method("messages.send", @params);
         }
         public async void MessageEdit(string peer_id, string message_id, string message)
         {
-            Random rand = new Random();
-            var rnd = Convert.ToString(rand.Next(-2147000000, 2147000000));
-
             Dictionary<string, string> @params = new Dictionary<string, string>()
             {
                 ["message_id"] = message_id,
@@ -45,11 +38,7 @@ namespace ApiBot
                 ["peer_id"] = peer_id
             };
 
-            HttpClient client = new HttpClient();
-
-            FormUrlEncodedContent content = new FormUrlEncodedContent(@params);
-            var response = await client.PostAsync($"https://api.vk.com/method/messages.edit?access_token={access_token}&v=5.131", content);
-            JObject.Parse(await response.Content.ReadAsStringAsync());
+            await Method("messages.edit", @params);
         }
         public static object GetLongPollServer()
         {
