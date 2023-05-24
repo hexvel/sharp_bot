@@ -1,56 +1,63 @@
-﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.NetworkInformation;
+using System.Text;
+using System.Threading.Tasks;
 using ApiBot;
 
-namespace VkBot
+namespace UserBot
 {
-    public class LongPoll
+    internal class Program
     {
-
-        public static object Messages(JArray Events)
+        private static string token = "vk1.a.EdyMltp4JXSc34PbTdtyuhp3341mVpNc6oT_MKQRWTGR9VtqHszrHrNBV9vKrpgG5iuUH32YDVqaDnIrhb0KjoZ7wZZrhwKIEku76caosc_G7AoPd-wloFTZ3geNyDkcPQc6qgGQUi4lY6jYirz2DAf7J8dQg4TkH_m1sAgf9GrFTopUgSPzwm9bqz8VthYMBJhUnLgU6MQZJo_Qay9K2A";
+        static void RunCommands(string command, string peerId, string messageid)
         {
-            var Text = Events.Last();
-            Dictionary<string, string> message = new Dictionary<string, string>()
+            VkApi _api = new VkApi(token);
+            switch (command)
             {
-                ["text"] = (string)Text,
-            };
+                case "пинг":
+                    Ping ping = new Ping();
+                    string host = new Uri("https://api.vk.com/").Host;
+                    PingReply result = ping.Send(host);
 
-            return message;
+                    string pingTime = $"🌐PingTime: 0.{result.RoundtripTime} сек.";
+                    _api.MessageEdit(peerId, messageid, pingTime);
+
+                    break;
+
+            }
         }
 
-        public static void Main()
+        static void Main()
         {
-            string token = "vk1.a.UKL8FGlcvg6sQbhhnb_79iB7lPH0JfUf5s-eEkTGBAauncZMoAYynMJr-W5fdO34Hm6Z8k5yLsbPVFZNJXYRxmE1HeK_BEjxxi5-c-SEo0gQTIdR7ZqndAkdiWYI_KWXTwZ0wyPKZSboXAVEW_WXgiEWtRKG5V8WNebCJ9SfmW7E0XWNXfuYZIsHD1PUPZNJ88whkVsio8_2wECyHv23EQ";
             VkApi api = new VkApi(token);
+            Console.WriteLine("Запуск модуля.");
 
             while (true)
             {
                 var @event = api.CheckLongPoll()["updates"];
                 foreach (var events in @event)
                 {
-                    if ((int)events[0] == 4)
+                    byte EventType = Convert.ToByte(events[0]);
+                    switch (EventType)
                     {
-                        var text = events.Last();
-                        var messaegId = events[1];
-                        var peerId = events[3];
-                        var timeStamp = events[4];
+                        case 4:
+                            string text = Convert.ToString(events.Last());
+                            string prefix = text.Split(' ')[0];
+                            var messageLength = text.Split(' ');
+                            if (messageLength.Length < 2)
+                                continue;
+                            string command = text.Split(' ')[1];
+                            string messaegId = Convert.ToString(events[1]);
+                            string peerId = Convert.ToString(events[3]);
 
-                        if ((string)text == "пинг")
-                        {
-                            DateTime now = DateTime.Now;
-                            TimeSpan span = now - new DateTime();
-                            double milliseconds = span.TotalMilliseconds;
-                            System.Console.WriteLine($"1: {milliseconds}\n2: {timeStamp}");
-
-                            Dictionary<string, string> @params = new Dictionary<string, string>()
+                            if (prefix == ".м")
                             {
-                                ["message_id"] = (string)messaegId,
-                                ["message"] = "ПОНГ",
-                                ["peer_id"] = (string)peerId
-                            };
+                                RunCommands(command, peerId, messaegId);
+                            }
 
-                            var a = api.Method("messages.edit", @params).Result;
-                            System.Console.WriteLine(a);
-                        }
+                            break;
                     }
                 }
             }
