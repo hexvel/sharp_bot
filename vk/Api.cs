@@ -7,7 +7,7 @@ namespace ApiBot
     public partial class VkApi
     {
         private string access_token, v;
-        public static string token = "vk1.a.AsJCIhYaIF3WTES_WtwDo8EPe9D4_ffZ0U9rI81DrG7fY52jzce_yek5JjL3iKgzfv944u70Xg4Z3rxDK9JJyPIcpQq6PvcrOcWa6MVcyZLNPsBuIyhdO8PMkQ09WI-Dm9QwcJMT9PRQjOGIag8XzeQa8D9dYvaID5EwPgLO-O8wrVgkZwm8yJJVNS1aTy_T";
+        public static string token = "";
         public static object GetLongPollServer()
         {
             Dictionary<string, string> Params = new Dictionary<string, string>()
